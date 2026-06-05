@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Life OS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===== SIDEBAR (Desktop) ===== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Life<strong>OS</strong></span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </div>
+
+    <div class="xp-card-mini">
+      <div class="level-badge" id="sidebarLevel">Lv.1</div>
+      <div class="xp-info">
+        <span class="xp-title" id="sidebarLevelName">Student</span>
+        <div class="xp-bar-wrap">
+          <div class="xp-bar-fill" id="sidebarXpBar"></div>
+        </div>
+        <span class="xp-val" id="sidebarXpVal">0 XP</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-section="dashboard">
+        <span class="nav-icon">🏠</span><span class="nav-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-section="morning">
+        <span class="nav-icon">🌅</span><span class="nav-label">Morning Routine</span>
+      </a>
+      <a href="#" class="nav-item" data-section="focus">
+        <span class="nav-icon">🎯</span><span class="nav-label">Today's Focus</span>
+      </a>
+      <a href="#" class="nav-item" data-section="habits">
+        <span class="nav-icon">🔥</span><span class="nav-label">Habit Tracker</span>
+      </a>
+      <a href="#" class="nav-item" data-section="skills">
+        <span class="nav-icon">⚔️</span><span class="nav-label">Skill Builder</span>
+      </a>
+      <a href="#" class="nav-item" data-section="til">
+        <span class="nav-icon">📚</span><span class="nav-label">Today I Learned</span>
+      </a>
+      <a href="#" class="nav-item" data-section="projects">
+        <span class="nav-icon">🚀</span><span class="nav-label">Project Tracker</span>
+      </a>
+      <a href="#" class="nav-item" data-section="ideas">
+        <span class="nav-icon">💡</span><span class="nav-label">Idea Vault</span>
+      </a>
+      <a href="#" class="nav-item" data-section="missions">
+        <span class="nav-icon">🏆</span><span class="nav-label">Weekly Missions</span>
+      </a>
+      <a href="#" class="nav-item" data-section="evening">
+        <span class="nav-icon">🌙</span><span class="nav-label">Evening Reflection</span>
+      </a>
+      <a href="#" class="nav-item" data-section="analytics">
+        <span class="nav-icon">📊</span><span class="nav-label">Analytics</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-streak">
+      <span class="streak-fire">🔥</span>
+      <span class="streak-num" id="sidebarStreak">0</span>
+      <span class="streak-label">day streak</span>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ========== DASHBOARD ========== -->
+    <section class="section active" id="section-dashboard">
+      <div class="section-header">
+        <h1 class="section-title">Dashboard</h1>
+        <div class="datetime-block">
+          <div class="live-date" id="liveDate"></div>
+          <div class="live-clock" id="liveClock"></div>
+        </div>
+      </div>
+
+      <div class="quote-card" id="quoteCard">
+        <span class="quote-mark">"</span>
+        <p class="quote-text" id="quoteText">Loading...</p>
+        <button class="quote-refresh" id="quoteRefresh" title="New quote">↺</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card accent-xp">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-body">
+            <div class="stat-num" id="dashXp">0</div>
+            <div class="stat-label">Total XP</div>
+          </div>
+        </div>
+        <div class="stat-card accent-level">
+          <div class="stat-icon">🎖️</div>
+          <div class="stat-body">
+            <div class="stat-num" id="dashLevel">1</div>
+            <div class="stat-label" id="dashLevelName">Student</div>
+          </div>
+        </div>
+        <div class="stat-card accent-streak">
+          <div class="stat-icon">🔥</div>
+          <div class="stat-body">
+            <div class="stat-num" id="dashStreak">0</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+        </div>
+        <div class="stat-card accent-tasks">
+          <div class="stat-icon">✅</div>
+          <div class="stat-body">
+            <div class="stat-num" id="dashTasksDone">0</div>
+            <div class="stat-label">Tasks Done</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="overview-grid">
+        <div class="card overview-habits">
+          <div class="card-header">
+            <h3>Habits Today</h3>
+            <span class="badge" id="habitBadge">0/0</span>
+          </div>
+          <div class="progress-ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 80 80">
+              <circle class="ring-bg" cx="40" cy="40" r="34"/>
+              <circle class="ring-fill" id="habitRing" cx="40" cy="40" r="34"/>
+            </svg>
+            <span class="ring-pct" id="habitPct">0%</span>
+          </div>
+        </div>
+
+        <div class="card overview-morning">
+          <div class="card-header">
+            <h3>Morning Routine</h3>
+            <span class="badge" id="morningBadge">0/0</span>
+          </div>
+          <div class="progress-ring-wrap">
+            <svg class="progress-ring" viewBox="0 0 80 80">
+              <circle class="ring-bg" cx="40" cy="40" r="34"/>
+              <circle class="ring-fill ring-morning" id="morningRing" cx="40" cy="40" r="34"/>
+            </svg>
+            <span class="ring-pct" id="morningPct">0%</span>
+          </div>
+        </div>
+
+        <div class="card overview-missions">
+          <div class="card-header">
+            <h3>Weekly Missions</h3>
+            <span class="badge" id="missionBadge">0/0</span>
+          </div>
+          <div class="mini-progress-list" id="missionPreview"></div>
+        </div>
+
+        <div class="card overview-skills">
+          <div class="card-header">
+            <h3>Top Skills</h3>
+          </div>
+          <div class="skill-preview-list" id="skillPreview"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== MORNING ROUTINE ========== -->
+    <section class="section" id="section-morning">
+      <div class="section-header">
+        <h1 class="section-title">Morning Routine</h1>
+        <div class="section-meta" id="morningMeta">0 / 0 complete</div>
+      </div>
+
+      <div class="wakeup-row">
+        <label class="input-label">⏰ Wake-up Time</label>
+        <input type="time" class="input-field time-input" id="wakeupTime" />
+      </div>
+
+      <div class="routine-list" id="routineList"></div>
+
+      <div class="add-routine-row">
+        <input type="text" class="input-field" id="newRoutineInput" placeholder="Add custom routine..." maxlength="60" />
+        <button class="btn btn-primary" id="addRoutineBtn">+ Add</button>
+      </div>
+    </section>
+
+    <!-- ========== TODAY'S FOCUS ========== -->
+    <section class="section" id="section-focus">
+      <div class="section-header">
+        <h1 class="section-title">Today's Focus</h1>
+      </div>
+
+      <div class="card focus-main-card">
+        <label class="input-label">🎯 Main Goal of the Day</label>
+        <textarea class="input-field textarea-field" id="mainGoal" placeholder="What's your #1 goal today?" rows="2" maxlength="200"></textarea>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Top 3 Priorities</h3>
+        <div class="priorities-list" id="prioritiesList"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Quick Tasks</h3>
+          <div class="task-stats" id="taskStats">0 / 0</div>
+        </div>
+        <div class="tasks-list" id="tasksList"></div>
+        <div class="add-task-row">
+          <input type="text" class="input-field" id="newTaskInput" placeholder="Add a task..." maxlength="100" />
+          <select class="input-field select-field" id="taskPriority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button class="btn btn-primary" id="addTaskBtn">+ Add</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HABIT TRACKER ========== -->
+    <section class="section" id="section-habits">
+      <div class="section-header">
+        <h1 class="section-title">Habit Tracker</h1>
+      </div>
+
+      <div class="add-habit-card card">
+        <input type="text" class="input-field" id="newHabitInput" placeholder="New habit name..." maxlength="60" />
+        <input type="text" class="input-field" id="newHabitEmoji" placeholder="Emoji (optional)" maxlength="4" style="width:80px" />
+        <button class="btn btn-primary" id="addHabitBtn">+ Add Habit</button>
+      </div>
+
+      <div class="habits-grid" id="habitsGrid"></div>
+
+      <div class="card habit-weekly">
+        <h3 class="card-title">📅 This Week's Completion</h3>
+        <div class="weekly-chart" id="weeklyChart"></div>
+      </div>
+    </section>
+
+    <!-- ========== SKILL BUILDER ========== -->
+    <section class="section" id="section-skills">
+      <div class="section-header">
+        <h1 class="section-title">Skill Builder</h1>
+      </div>
+
+      <div class="add-skill-card card">
+        <input type="text" class="input-field" id="newSkillInput" placeholder="Skill name..." maxlength="50" />
+        <input type="text" class="input-field" id="newSkillEmoji" placeholder="Emoji" maxlength="4" style="width:80px" />
+        <button class="btn btn-primary" id="addSkillBtn">+ Add Skill</button>
+      </div>
+
+      <div class="skills-grid" id="skillsGrid"></div>
+    </section>
+
+    <!-- ========== TODAY I LEARNED ========== -->
+    <section class="section" id="section-til">
+      <div class="section-header">
+        <h1 class="section-title">Today I Learned</h1>
+      </div>
+
+      <div class="card til-input-card">
+        <input type="text" class="input-field" id="tilTitle" placeholder="What did you learn today?" maxlength="100" />
+        <textarea class="input-field textarea-field" id="tilBody" placeholder="Describe what you learned..." rows="3" maxlength="1000"></textarea>
+        <div class="til-actions">
+          <select class="input-field select-field" id="tilCategory">
+            <option>General</option>
+            <option>Tech</option>
+            <option>Science</option>
+            <option>Life Skills</option>
+            <option>Language</option>
+            <option>Business</option>
+            <option>Other</option>
+          </select>
+          <button class="btn btn-primary" id="saveTilBtn">Save Entry +10 XP</button>
+        </div>
+      </div>
+
+      <div class="til-search-row">
+        <input type="text" class="input-field search-input" id="tilSearch" placeholder="🔍 Search entries..." />
+        <select class="input-field select-field" id="tilFilter">
+          <option value="">All Categories</option>
+          <option>General</option>
+          <option>Tech</option>
+          <option>Science</option>
+          <option>Life Skills</option>
+          <option>Language</option>
+          <option>Business</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="til-entries" id="tilEntries"></div>
+    </section>
+
+    <!-- ========== PROJECT TRACKER ========== -->
+    <section class="section" id="section-projects">
+      <div class="section-header">
+        <h1 class="section-title">Project Tracker</h1>
+      </div>
+
+      <div class="card add-project-card">
+        <input type="text" class="input-field" id="newProjectName" placeholder="Project name..." maxlength="80" />
+        <textarea class="input-field textarea-field" id="newProjectNotes" placeholder="Notes (optional)..." rows="2" maxlength="500"></textarea>
+        <button class="btn btn-primary" id="addProjectBtn">+ Add Project</button>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <!-- ========== IDEA VAULT ========== -->
+    <section class="section" id="section-ideas">
+      <div class="section-header">
+        <h1 class="section-title">Idea Vault</h1>
+      </div>
+
+      <div class="card add-idea-card">
+        <input type="text" class="input-field" id="newIdeaTitle" placeholder="Your idea..." maxlength="120" />
+        <textarea class="input-field textarea-field" id="newIdeaDesc" placeholder="Describe your idea..." rows="2" maxlength="500"></textarea>
+        <div class="idea-actions">
+          <select class="input-field select-field" id="ideaCategory">
+            <option>Startup Idea</option>
+            <option>Project Idea</option>
+            <option>Content Idea</option>
+            <option>Business Idea</option>
+            <option>Personal Idea</option>
+          </select>
+          <button class="btn btn-primary" id="addIdeaBtn">💡 Save Idea</button>
+        </div>
+      </div>
+
+      <div class="ideas-search-row">
+        <input type="text" class="input-field search-input" id="ideaSearch" placeholder="🔍 Search ideas..." />
+        <select class="input-field select-field" id="ideaFilter">
+          <option value="">All Categories</option>
+          <option>Startup Idea</option>
+          <option>Project Idea</option>
+          <option>Content Idea</option>
+          <option>Business Idea</option>
+          <option>Personal Idea</option>
+        </select>
+      </div>
+
+      <div class="ideas-grid" id="ideasGrid"></div>
+    </section>
+
+    <!-- ========== WEEKLY MISSIONS ========== -->
+    <section class="section" id="section-missions">
+      <div class="section-header">
+        <h1 class="section-title">Weekly Missions</h1>
+        <div class="section-meta" id="missionsMeta">0% complete</div>
+      </div>
+
+      <div class="card add-mission-card">
+        <input type="text" class="input-field" id="newMissionInput" placeholder="Weekly mission..." maxlength="100" />
+        <button class="btn btn-primary" id="addMissionBtn">+ Add Mission</button>
+      </div>
+
+      <div class="missions-list" id="missionsList"></div>
+    </section>
+
+    <!-- ========== EVENING REFLECTION ========== -->
+    <section class="section" id="section-evening">
+      <div class="section-header">
+        <h1 class="section-title">Evening Reflection</h1>
+        <div class="section-meta" id="reflectionDate"></div>
+      </div>
+
+      <div class="reflection-grid">
+        <div class="card reflection-card">
+          <label class="reflection-label">✅ What did I complete today?</label>
+          <textarea class="input-field textarea-field" id="reflectCompleted" rows="3" placeholder="List your completions..." maxlength="500"></textarea>
+        </div>
+        <div class="card reflection-card">
+          <label class="reflection-label">📚 What did I learn today?</label>
+          <textarea class="input-field textarea-field" id="reflectLearned" rows="3" placeholder="Your learnings..." maxlength="500"></textarea>
+        </div>
+        <div class="card reflection-card">
+          <label class="reflection-label">❌ What went wrong today?</label>
+          <textarea class="input-field textarea-field" id="reflectWrong" rows="3" placeholder="Be honest..." maxlength="500"></textarea>
+        </div>
+        <div class="card reflection-card">
+          <label class="reflection-label">🔧 What can I improve tomorrow?</label>
+          <textarea class="input-field textarea-field" id="reflectImprove" rows="3" placeholder="Action items..." maxlength="500"></textarea>
+        </div>
+        <div class="card reflection-card full-width">
+          <label class="reflection-label">🎯 Tomorrow's Main Goal</label>
+          <textarea class="input-field textarea-field" id="reflectTomorrow" rows="2" placeholder="Set your intention..." maxlength="200"></textarea>
+        </div>
+      </div>
+      <button class="btn btn-primary btn-lg" id="saveReflectionBtn">💾 Save Reflection</button>
+
+      <div class="past-reflections" id="pastReflections"></div>
+    </section>
+
+    <!-- ========== ANALYTICS ========== -->
+    <section class="section" id="section-analytics">
+      <div class="section-header">
+        <h1 class="section-title">Analytics</h1>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="card analytics-card">
+          <h3 class="card-title">📊 Habit Completion (7 Days)</h3>
+          <div class="bar-chart" id="habitChart"></div>
+        </div>
+        <div class="card analytics-card">
+          <h3 class="card-title">⚡ XP History (7 Days)</h3>
+          <div class="bar-chart" id="xpChart"></div>
+        </div>
+        <div class="card analytics-card full-width">
+          <h3 class="card-title">⚔️ Skill Progress</h3>
+          <div class="skills-analytics" id="skillsAnalytics"></div>
+        </div>
+        <div class="card analytics-card">
+          <h3 class="card-title">📈 Weekly Productivity Score</h3>
+          <div class="productivity-score-wrap">
+            <div class="big-score" id="productivityScore">0</div>
+            <div class="score-label">/ 100</div>
+          </div>
+        </div>
+        <div class="card analytics-card">
+          <h3 class="card-title">🔥 Streak History</h3>
+          <div class="streak-dots" id="streakDots"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== BOTTOM NAV (Mobile) ===== -->
+  <nav class="bottom-nav" id="bottomNav">
+    <a href="#" class="bn-item active" data-section="dashboard"><span>🏠</span><span>Home</span></a>
+    <a href="#" class="bn-item" data-section="habits"><span>🔥</span><span>Habits</span></a>
+    <a href="#" class="bn-item" data-section="focus"><span>🎯</span><span>Focus</span></a>
+    <a href="#" class="bn-item" data-section="skills"><span>⚔️</span><span>Skills</span></a>
+    <a href="#" class="bn-item" data-section="analytics"><span>📊</span><span>Stats</span></a>
+  </nav>
+
+  <!-- ===== MOBILE NAV DRAWER ===== -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">☰</button>
+  <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <span class="logo-text">Life<strong>OS</strong> Menu</span>
+      <button class="drawer-close" id="drawerClose">✕</button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="#" class="nav-item" data-section="dashboard" data-drawer>🏠 Dashboard</a>
+      <a href="#" class="nav-item" data-section="morning" data-drawer>🌅 Morning Routine</a>
+      <a href="#" class="nav-item" data-section="focus" data-drawer>🎯 Today's Focus</a>
+      <a href="#" class="nav-item" data-section="habits" data-drawer>🔥 Habit Tracker</a>
+      <a href="#" class="nav-item" data-section="skills" data-drawer>⚔️ Skill Builder</a>
+      <a href="#" class="nav-item" data-section="til" data-drawer>📚 Today I Learned</a>
+      <a href="#" class="nav-item" data-section="projects" data-drawer>🚀 Project Tracker</a>
+      <a href="#" class="nav-item" data-section="ideas" data-drawer>💡 Idea Vault</a>
+      <a href="#" class="nav-item" data-section="missions" data-drawer>🏆 Weekly Missions</a>
+      <a href="#" class="nav-item" data-section="evening" data-drawer>🌙 Evening Reflection</a>
+      <a href="#" class="nav-item" data-section="analytics" data-drawer>📊 Analytics</a>
+    </nav>
+    <div class="drawer-theme">
+      <button class="btn btn-ghost" id="drawerThemeBtn">🌙 Toggle Theme</button>
+    </div>
+  </div>
+
+  <!-- ===== XP TOAST ===== -->
+  <div class="xp-toast" id="xpToast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
